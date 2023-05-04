@@ -5,11 +5,29 @@ import { Link } from 'react-router-dom'
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LoadImage from "../Images/loader.gif"
 
-const Card = styled(Link)`
+const Button = styled(Link)`
+    display: none;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.card};
+    background-color: white;
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin: 12px 0px 0px 0px;
+    text-align: center;
+    &:hover{
+        cursor: pointer;
+        filter: brightness(1.2);
+    }
+`
+
+const Card = styled.div`
     max-width: 240px;
     flex-basis: auto;
     display: flex;
     flex-direction: column;
+    transition: all 0.4s ease-in-out;
     width: 100%;
     text-decoration: none;
     border-radius: 10px;
@@ -21,6 +39,9 @@ const Card = styled(Link)`
       transition: all 0.4s ease-in-out;
       box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.8);
       filter: brightness(1.3);
+    }
+    &:hover ${Button}{
+        display: block;
     }
 
 `
@@ -48,7 +69,7 @@ const Overlay = styled.div`
 const Details = styled.div`
     display: none;
     height: 55%;
-    padding: 8px 20px 26px 20px;
+    padding: 8px 20px 24px 20px;
     display: flex;
     gap: 2px;
     flex-direction: column;
@@ -89,9 +110,10 @@ const Description = styled.div`
 `
 
 
+
 const ShowCard = ({ showData }) => {
     return (
-        <Card to={`/show/${showData?.id}`}>
+        <Card>
             <Top>
                 <Image src={showData?.image?.original}
                 />
@@ -107,6 +129,7 @@ const ShowCard = ({ showData }) => {
                     ))}
                 </Subdata>
                 <Description style={{ marginTop: '2px' }}>{showData?.summary}</Description>
+                <Button to={`/show/${showData?.id}`}>View</Button>
             </Details>
         </Card>
     )

@@ -12,6 +12,7 @@ width: 100%;
 overflow-y: scroll;
 display: flex;
 flex-direction: column;
+transition: all 0.4s ease-in-out;
 `
 
 const Loader = styled.div`

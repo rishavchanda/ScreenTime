@@ -14,6 +14,7 @@ const Container = styled.div`
   width: 100%;
   overflow-y: scroll;
   display: flex;
+  transition: all 0.4s ease-in-out;
   flex-direction: column;
 `
 const Loader = styled.div`
