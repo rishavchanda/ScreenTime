@@ -43,7 +43,7 @@ const Overlay = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background: linear-gradient(353.28deg, #0E0D0D -12.95%, rgba(217, 217, 217, 0) 61.67%);
+    background: linear-gradient(6.74deg, #0E0D0D 12.73%, rgba(217, 217, 217, 0) 90.48%);
     `
 const Details = styled.div`
     display: none;
