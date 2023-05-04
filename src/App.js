@@ -14,12 +14,17 @@ const Body = styled.div`
   background: ${({ theme }) => theme.bgLight};
   overflow-y: hidden;
   overflow-x: hidden;
+  display: flex;
+  justify-content: center;
 `;
 
 function App() {
 
   // use state hooks
   const [darkMode, setDarkMode] = useState(true);
+
+  // use effect hooks
+
 
   return (
 
@@ -28,7 +33,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" exact element={<Home/>} />
-            <Route path="/details" element={<ShowDetails/>} />
+            <Route path="/details/:id" element={<ShowDetails/>} />
           </Routes>
         </BrowserRouter>
       </Body>
