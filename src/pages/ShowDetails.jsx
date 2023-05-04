@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { getShowDetails } from '../api'
 import { CircularProgress } from '@mui/material'
-
-
 const Container = styled.div`
 display: flex;
 flex-direction: column;

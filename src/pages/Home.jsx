@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getAllShows, searchShows } from '../api/index'
 import ShowCard from '../components/ShowCard';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, getPaginationItemUtilityClass } from '@mui/material';
+import SimpleImageSlider from "react-simple-image-slider";
+import Icon from "../Images/Icon.png"
 
 const Container = styled.div`
   display: flex;
@@ -22,18 +24,27 @@ const Loader = styled.div`
   align-items: center;
 `
 
-const Top = styled.div` 
-  height: 45%;
+const Logo = styled.div`
   width: 100%;
-  background-color: #000;
+  font-size: 32px;
+  color: ${({ theme }) => theme.text_primary};
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap 12px;
+  padding: 12px;
 `
-const ImageSlider = styled.div`
+
+const Top = styled.div` 
+  width: 100%;
+`
+const ImageSlider = styled(SimpleImageSlider)`
   height: 100%;
   width: 100%;
 `
 
 const Body = styled.div`
-  height: 55%;
   padding: 2% 4%;
   display: flex;
   flex-direction: column;
@@ -121,7 +132,24 @@ const Home = () => {
     })
   }
 
+  // const getMostPopularShows = async () => {
+  //   await getAllShows().then((res) => {
+  //     //push images to images array
+  //     let data = res.data
+  //     let imgList = images
+  //     for(let i=0;i<10;i++)
+  //     {
+  //       imgList[i] = {url: data?.image?.original}
+  //       setImages(imgList)
+  //     }
+  //     console.log(imgList)
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  // }
+
   useEffect(() => {
+    // getMostPopularShows()
     getShow()
   }, [])
 
@@ -133,8 +161,19 @@ const Home = () => {
         </Loader>
         :
         <>
+          <Logo>
+            <img src={Icon} style={{width: '32px', height: '32px'}}/>
+            ScreenTime
+          </Logo>
           <Top>
-            <ImageSlider></ImageSlider>
+            {/* <ImageSlider
+              width="100%"
+              height={400}
+              images={images}
+              showBullets={true}
+              showNavs={true}
+              autoplay={true}
+            /> */}
           </Top>
           <Body>
             <SearchBar>
