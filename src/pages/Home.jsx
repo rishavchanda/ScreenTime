@@ -25,7 +25,7 @@ const Loader = styled.div`
 `
 
 const Logo = styled.div`
-  width: 100%;
+  width: 95%;
   font-size: 32px;
   color: ${({ theme }) => theme.text_primary};
   font-weight: bold;
