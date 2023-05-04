@@ -15,6 +15,15 @@ overflow-y: scroll;
 display: flex;
 flex-direction: column;
 `
+
+const Loader = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -95,7 +104,7 @@ const BookTicket = styled.button`
     cursor: pointer;
     `
 
-const ShowDetails = () => {
+const ShowDetails = ({setOpenBooking}) => {
 
   //hooks
   const { id } = useParams()
@@ -117,7 +126,9 @@ const ShowDetails = () => {
   return (
     <Container>
       {loading ?
+        <Loader>
         <CircularProgress />
+        </Loader>
         : (
           <Wrapper>
             <Image src={show?.image?.original} />
@@ -138,7 +149,7 @@ const ShowDetails = () => {
                 </Subdata>
               </div>
               <Description>{show?.summary}</Description>
-              <BookTicket>Book Ticket</BookTicket>
+              <BookTicket onClick={()=> setOpenBooking({state:true, id: id}) }>Book Ticket</BookTicket>
             </Details>
           </Wrapper>
         )}

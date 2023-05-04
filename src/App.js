@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import styled from 'styled-components';
 import Home from './pages/Home'
 import ShowDetails from './pages/ShowDetails'
+import Form from "./components/Form.jsx";
 
 const Body = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ function App() {
 
   // use state hooks
   const [darkMode, setDarkMode] = useState(true);
+  const [openBooking, setOpenBooking] = useState({state: false, id: null});
 
   // use effect hooks
 
@@ -33,9 +35,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" exact element={<Home/>} />
-            <Route path="/show/:id" element={<ShowDetails/>} />
+            <Route path="/show/:id" element={<ShowDetails setOpenBooking={setOpenBooking}/>} />
           </Routes>
         </BrowserRouter>
+        {openBooking.state && <Form setOpenBooking={setOpenBooking} openBooking={openBooking}/>}
       </Body>
     </ThemeProvider>
   );

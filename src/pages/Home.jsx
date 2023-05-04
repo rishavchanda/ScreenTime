@@ -14,6 +14,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `
+const Loader = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const Top = styled.div` 
   height: 45%;
@@ -96,7 +103,9 @@ const Home = () => {
   return (
     <Container>
       {loading ?
-        <CircularProgress />
+        <Loader>
+          <CircularProgress />
+        </Loader>
         :
         <>
           <Top>
