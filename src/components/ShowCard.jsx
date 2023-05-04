@@ -1,7 +1,9 @@
 import { Container } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import LoadImage from "../Images/loader.gif"
 
 const Card = styled(Link)`
     max-width: 240px;
@@ -28,7 +30,7 @@ const Top = styled.div`
     border-radius: 10px 10px 0 0;
     position: relative;
 `
-const Image = styled.img`
+const Image = styled(LazyLoadImage)`
     height: 100%;
     border-radius: 10px;
     object-fit: cover;
@@ -87,23 +89,24 @@ const Description = styled.div`
 `
 
 
-const ShowCard = ({showData}) => {
+const ShowCard = ({ showData }) => {
     return (
-        <Card to={`/show/${showData?.show?.id}`}>
+        <Card to={`/show/${showData?.id}`}>
             <Top>
-                <Image src={showData?.show?.image?.original}/>
+                <Image src={showData?.image?.original}
+                />
                 <Overlay />
-                <Title>{showData?.show?.name}</Title>
+                <Title>{showData?.name}</Title>
             </Top>
             <Details>
                 <Subdata></Subdata>
-                <Subdata>{showData?.show?.rating?.average} / 10 &nbsp;• {showData?.show?.language} &nbsp;• {showData?.show?.premiered}</Subdata>
+                <Subdata>{showData?.rating?.average} / 10 &nbsp;• {showData?.language} &nbsp;• {showData?.premiered}</Subdata>
                 <Subdata>
-                •  {showData?.show?.genres?.map((item)=>(
+                    •  {showData?.genres?.map((item) => (
                         <>{item} &nbsp; </>
                     ))}
                 </Subdata>
-                <Description style={{marginTop: '2px'}}>{showData?.show?.summary}</Description>
+                <Description style={{ marginTop: '2px' }}>{showData?.summary}</Description>
             </Details>
         </Card>
     )

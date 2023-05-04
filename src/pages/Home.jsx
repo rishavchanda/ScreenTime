@@ -1,7 +1,7 @@
 import { SearchRounded } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getAllShows } from '../api/index'
+import { getAllShows, searchShows } from '../api/index'
 import ShowCard from '../components/ShowCard';
 import { CircularProgress } from '@mui/material';
 
@@ -81,6 +81,7 @@ const ShowWrapper = styled.div`
   gap: 20px;
   align-content: flex-start;
   margin: 0;
+  justify-content: center;
   padding: 40px 0;
   `
 
@@ -89,8 +90,28 @@ const Home = () => {
   // hooks for shows
   const [shows, setShows] = useState([])
   const [loading, setLoading] = useState(false)
+  const [innerLoading, setInnerLoading] = useState(false);
 
-  useEffect(() => {
+  const [search, setSearch] = useState("");
+
+  const searchShow = async (e) => {
+    setInnerLoading(true);
+    setSearch(e.target.value)
+    console.log(e.target.value)
+    await searchShows(search).then((res) => {
+      setShows(res.data)
+      setInnerLoading(false)
+    }).catch((err) => {
+      console.log(err)
+      setInnerLoading(false)
+    })
+    if (e.target.value === "") {
+      getShow()
+    }
+  }
+
+  const getShow = () => {
+
     setLoading(true)
     getAllShows().then((res) => {
       setShows(res.data)
@@ -98,6 +119,10 @@ const Home = () => {
     }).catch((err) => {
       console.log(err)
     })
+  }
+
+  useEffect(() => {
+    getShow()
   }, [])
 
   return (
@@ -114,20 +139,42 @@ const Home = () => {
           <Body>
             <SearchBar>
               <SearchRounded sx={{ color: 'inherit', fontSize: 'inherit' }} />
-              <Search placeholder="Search Tv shows ..."></Search>
+              <Search placeholder="Search Tv shows ..." value={search} onChange={(e) => searchShow(e)} />
             </SearchBar>
-            <ShowWrapper
-            >
-              {
-                shows.map((show, id) => {
-                  return (
-                    <ShowCard showData={show} key={id} />
-                  )
-                }
-                )
+            <>
+              {search === "" ?
+                <ShowWrapper
+                >
+                  {
+                    shows.map((show, id) => {
+                      return (
+                        <ShowCard showData={show} />
+                      )
+                    }
+                    )
+                  }
+                </ShowWrapper>
+                :
+                <ShowWrapper
+                >
+                  {innerLoading ?
+                    <Loader>
+                      <CircularProgress />
+                    </Loader>
+                    : <>
+                      {
+                        shows.map((show, id) => {
+                          return (
+                            <ShowCard showData={show?.show} />
+                          )
+                        }
+                        )
+                      }
+                    </>
+                  }
+                </ShowWrapper>
               }
-              <ShowCard />
-            </ShowWrapper>
+            </>
           </Body>
         </>
       }
