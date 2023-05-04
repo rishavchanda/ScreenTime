@@ -33,7 +33,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" exact element={<Home/>} />
-            <Route path="/details/:id" element={<ShowDetails/>} />
+            <Route path="/show/:id" element={<ShowDetails/>} />
           </Routes>
         </BrowserRouter>
       </Body>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getAllShows } from '../api/index'
 import ShowCard from '../components/ShowCard';
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
   display: flex;
@@ -80,10 +81,13 @@ const Home = () => {
 
   // hooks for shows
   const [shows, setShows] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     getAllShows().then((res) => {
       setShows(res.data)
+      setLoading(false)
     }).catch((err) => {
       console.log(err)
     })
@@ -91,27 +95,33 @@ const Home = () => {
 
   return (
     <Container>
-      <Top>
-        <ImageSlider></ImageSlider>
-      </Top>
-      <Body>
-        <SearchBar>
-          <SearchRounded sx={{ color: 'inherit', fontSize: 'inherit' }} />
-          <Search placeholder="Search Tv shows ..."></Search>
-        </SearchBar>
-        <ShowWrapper
-        >
-          {
-            shows.map((show,id) => {
-              return (
-                <ShowCard showData={show} id={id}/>
-              )
-            }
-            )
-          }
-          <ShowCard />
-        </ShowWrapper>
-      </Body>
+      {loading ?
+        <CircularProgress />
+        :
+        <>
+          <Top>
+            <ImageSlider></ImageSlider>
+          </Top>
+          <Body>
+            <SearchBar>
+              <SearchRounded sx={{ color: 'inherit', fontSize: 'inherit' }} />
+              <Search placeholder="Search Tv shows ..."></Search>
+            </SearchBar>
+            <ShowWrapper
+            >
+              {
+                shows.map((show, id) => {
+                  return (
+                    <ShowCard showData={show} key={id} />
+                  )
+                }
+                )
+              }
+              <ShowCard />
+            </ShowWrapper>
+          </Body>
+        </>
+      }
     </Container>
   )
 }

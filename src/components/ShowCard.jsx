@@ -87,9 +87,9 @@ const Description = styled.div`
 `
 
 
-const ShowCard = ({showData,id}) => {
+const ShowCard = ({showData}) => {
     return (
-        <Card to={`/details/${id}`}>
+        <Card to={`/show/${showData?.show?.id}`}>
             <Top>
                 <Image src={showData?.show?.image?.original}/>
                 <Overlay />
